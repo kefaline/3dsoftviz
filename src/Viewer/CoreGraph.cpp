@@ -1297,7 +1297,6 @@ osg::ref_ptr<osg::Node> CoreGraph::createTextureBackground()
 	skymap->setResizeNonPowerOfTwoHint( false );
 
 
-
 	// stateset
 	osg::ref_ptr<osg::StateSet> stateset = new osg::StateSet();
 	stateset->setTextureAttributeAndModes( 0, skymap, osg::StateAttribute::ON );
@@ -1309,8 +1308,6 @@ osg::ref_ptr<osg::Node> CoreGraph::createTextureBackground()
 	depth->setFunction( osg::Depth::ALWAYS );
 	depth->setRange( 1, 1 );
 	stateset->setAttributeAndModes( depth, osg::StateAttribute::ON );
-
-
 
 	osg::ref_ptr<osg::Geode> geode = new osg::Geode;
 	geode->setCullingActive( false );
@@ -1800,7 +1797,9 @@ void CoreGraph::setNodeVisual( unsigned int index )
 		++iMetaNode;
 	}
 
-	graph->setNodeVisual( index );
+	if ( graph != NULL ) {
+		graph->setNodeVisual( index );
+	}
 }
 
 void CoreGraph::setEdgeVisual( int index )
@@ -1819,7 +1818,9 @@ void CoreGraph::setEdgeVisual( int index )
 		++iMetaEdge;
 	}
 
-	graph->setEdgeVisual( index );
+	if ( graph != NULL ) {
+		graph->setEdgeVisual( index );
+	}
 }
 
 void CoreGraph::setEdgeVisualForType( int index, QString edgeTypeName )

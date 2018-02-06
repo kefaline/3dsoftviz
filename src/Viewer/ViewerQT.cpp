@@ -4,6 +4,7 @@
 #include "Viewer/CameraManipulator.h"
 #include "Viewer/CoreGraph.h"
 #include "Util/ApplicationConfig.h"
+#include "Util/CameraHelper.h"
 #include "Core/Core.h"
 
 #include <math.h>
@@ -11,6 +12,7 @@
 QOSG::ViewerQT::ViewerQT( const QGLFormat& format, QWidget* parent, const char* name, const QGLWidget* shareWidget, WindowFlags f, Vwr::CoreGraph* cg ):
 	AdapterWidget( format, parent, name, shareWidget, f )
 {
+	Util::CameraHelper::setCamera( this->getCamera() );
 	this->cg = cg;
 	cg->setCamera( this->getCamera() );
 
@@ -64,8 +66,9 @@ QOSG::ViewerQT::ViewerQT( const QGLFormat& format, QWidget* parent, const char* 
 	}
 	else {
 		getCamera()->setViewport( new osg::Viewport( 0, 0, width(), height() ) );
+		getCamera()->setCullMask( 0x1 );
+		getCamera()->setClearColor( osg::Vec4( 0, 0, 0, 1 ) );
 		getCamera()->setGraphicsContext( getGraphicsWindow() );
-		//getCamera()->setProjectionMatrixAsFrustum(-widthFrustum/2.0, widthFrustum/2.0, -heigthFrustum/2.0, heigthFrustum/2.0, nearClippingPlane, farClippingPlane);
 		getCamera()->setProjectionMatrixAsPerspective( fovy, aspectRatio, nearClippingPlane, farClippingPlane );
 		getCamera()->setViewMatrix( osg::Matrix::lookAt( osg::Vec3d( -10, 0, 0 ), osg::Vec3d( 0, 0, 0 ), osg::Vec3d( 0, 1, 0 ) ) );
 	}
