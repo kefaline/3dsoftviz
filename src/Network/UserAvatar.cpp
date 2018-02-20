@@ -17,7 +17,7 @@ void UserAvatar::UpdateHands( QDataStream* stream )
 void UserAvatar::initStructure()
 {
 	osg::Cone* cone = new osg::Cone( osg::Vec3( 0,0,0 ), 4.0f, 6.0f );
-    //cone->setRotation( osg::Quat( double(M_PI/2), osg::Vec3d(1,0,0) ) );
+	//cone->setRotation( osg::Quat( double(M_PI/2), osg::Vec3d(1,0,0) ) );
 	osg::ShapeDrawable* coneDrawable = new osg::ShapeDrawable( cone );
 	osg::Geode* coneGeode = new osg::Geode();
 	coneGeode->addDrawable( coneDrawable );
@@ -29,14 +29,14 @@ void UserAvatar::initStructure()
 	this->addChild( coneGeode );
 
 	this->handsGroup = new osg::MatrixTransform();
-	this->leftHand = new Leap::HandPalm( 0.1f, this->handsGroup, Leap::HandColors::LEFT );
-	this->rightHand = new Leap::HandPalm( 0.1f, this->handsGroup, Leap::HandColors::RIGHT );
+	this->leftHand = new Softviz::Leap::HandPalm( 0.1f, this->handsGroup, Softviz::Leap::HandColors::LEFT );
+	this->rightHand = new Softviz::Leap::HandPalm( 0.1f, this->handsGroup, Softviz::Leap::HandColors::RIGHT );
 
 	auto mat = this->handsGroup->getMatrix();
-	mat.preMultTranslate(osg::Vec3f(0,0,-1));
-	mat.preMultRotate(osg::Quat(M_PI/-2, osg::Vec3f(1,0,0)));
-	mat.preMultScale(osg::Vec3f(1.5,1.5,1.5));
-	this->handsGroup->setMatrix(mat);
+	mat.preMultTranslate( osg::Vec3f( 0,0,-1 ) );
+	mat.preMultRotate( osg::Quat( M_PI/-2, osg::Vec3f( 1,0,0 ) ) );
+	mat.preMultScale( osg::Vec3f( 1.5,1.5,1.5 ) );
+	this->handsGroup->setMatrix( mat );
 
 	this->addChild( this->handsGroup );
 

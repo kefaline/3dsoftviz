@@ -28,23 +28,38 @@ namespace Vwr {
 class CoreGraph;
 }
 
-const QEvent::Type HANDS_UPDATED_EVENT = (QEvent::Type)10001;
+const QEvent::Type HANDS_UPDATED_EVENT = ( QEvent::Type )10001;
 
 class HandsUpdatedEvent : public QEvent
 {
 public:
-	HandsUpdatedEvent( Leap::HandPalm* leftHand = nullptr, Leap::HandPalm* rightHand = nullptr );
-	const Type type() { return (QEvent::Type)registerEventType(HANDS_UPDATED_EVENT); }
+	HandsUpdatedEvent( Softviz::Leap::HandPalm* leftHand = nullptr, Softviz::Leap::HandPalm* rightHand = nullptr );
+	const Type type()
+	{
+		return ( QEvent::Type )registerEventType( HANDS_UPDATED_EVENT );
+	}
 
-	bool isLeftHand() { return leftHand != nullptr; }
-	bool isRightHand() { return rightHand != nullptr; }
+	bool isLeftHand()
+	{
+		return leftHand != nullptr;
+	}
+	bool isRightHand()
+	{
+		return rightHand != nullptr;
+	}
 
-	Leap::HandPalm* getLeftHand() { return this->leftHand; }
-	Leap::HandPalm* getRightHand() { return this->rightHand; }
+	Softviz::Leap::HandPalm* getLeftHand()
+	{
+		return this->leftHand;
+	}
+	Softviz::Leap::HandPalm* getRightHand()
+	{
+		return this->rightHand;
+	}
 
 private:
-	Leap::HandPalm* leftHand = nullptr;
-	Leap::HandPalm* rightHand = nullptr;
+	Softviz::Leap::HandPalm* leftHand = nullptr;
+	Softviz::Leap::HandPalm* rightHand = nullptr;
 };
 
 namespace Network {
@@ -179,8 +194,8 @@ public:
 		return cw;
 	}
 
-	void invokeSendHands( Leap::HandPalm* leftHand, Leap::HandPalm* rightHand );
-	void sendHands( Leap::HandPalm* leftPalm, Leap::HandPalm* rightPalm );
+	void invokeSendHands( Softviz::Leap::HandPalm* leftHand, Softviz::Leap::HandPalm* rightHand );
+	void sendHands( Softviz::Leap::HandPalm* leftPalm, Softviz::Leap::HandPalm* rightPalm );
 	virtual void customEvent( QEvent* event );
 
 private slots:

@@ -14,7 +14,7 @@ const int TYPE_MIDDLE = 2; /*< The middle finger */
 const int TYPE_RING = 3; /*< The ring finger */
 const int BONE_COUNT = 4; /*< The ring finger */
 
-Leap::HandPalm::HandPalm( float radius, osg::ref_ptr<osg::Group> handsGroup, HandColors colorSwitch )
+Softviz::Leap::HandPalm::HandPalm( float radius, osg::ref_ptr<osg::Group> handsGroup, HandColors colorSwitch )
 	: fingerGroup( new osg::Group() ), interFingerBoneGroup( new osg::Group() ), colorSwitch( colorSwitch )
 {
 	this->generateGeometry( radius, colorSwitch );
@@ -29,9 +29,9 @@ Leap::HandPalm::HandPalm( float radius, osg::ref_ptr<osg::Group> handsGroup, Han
 	}
 }
 
-void Leap::HandPalm::initStructure()
+void Softviz::Leap::HandPalm::initStructure()
 {
-	QMutexLocker locker(&updateLock);
+	QMutexLocker locker( &updateLock );
 
 //	LOG( INFO ) << "Leap/HandleModule/HandPalm/initStrucure()";
 	if ( this->fingerGroup.get()->getNumChildren() == 0 ) {
@@ -71,9 +71,9 @@ void Leap::HandPalm::initStructure()
 	}
 }
 
-void Leap::HandPalm::generateGeometry( float radius, HandColors colorSwitch )
+void Softviz::Leap::HandPalm::generateGeometry( float radius, HandColors colorSwitch )
 {
-	QMutexLocker locker(&updateLock);
+	QMutexLocker locker( &updateLock );
 
 	osg::ref_ptr<osg::Geode> handGeode( new osg::Geode );
 	osg::ref_ptr<osg::Sphere> handSphere = new osg::Sphere( osg::Vec3f( 0.0f,0.0f,0.0f ), radius );
@@ -86,9 +86,9 @@ void Leap::HandPalm::generateGeometry( float radius, HandColors colorSwitch )
 	this->addChild( handGeode.get() );
 }
 
-void Leap::HandPalm::addToStream( QDataStream* stream )
+void Softviz::Leap::HandPalm::addToStream( QDataStream* stream )
 {
-	QMutexLocker locker(&updateLock);
+	QMutexLocker locker( &updateLock );
 
 	Leap::HandNode::addToStream( stream );
 
@@ -108,9 +108,9 @@ void Leap::HandPalm::addToStream( QDataStream* stream )
 	}
 }
 
-void Leap::HandPalm::setFromStream( QDataStream* stream )
+void Softviz::Leap::HandPalm::setFromStream( QDataStream* stream )
 {
-	QMutexLocker locker(&updateLock);
+	QMutexLocker locker( &updateLock );
 
 	Leap::HandNode::setFromStream( stream );
 
